@@ -7,10 +7,25 @@ import mammoth from "mammoth";
 export async function parseDocx(
   buffer: Buffer
 ): Promise<{ title: string; content: string }> {
-  // Extract as markdown-style text
-  const result = await mammoth.convertToMarkdown({ buffer });
+  // Extract as HTML then convert to simple markdown-like text
+  const result = await mammoth.convertToHtml({ buffer });
 
-  const markdown = result.value.trim();
+  const html = result.value.trim();
+
+  // Convert HTML to simple text with basic structure
+  const markdown = html
+    .replace(/<h([1-6])[^>]*>(.*?)<\/h[1-6]>/gi, (_, level, text) => '#'.repeat(Number(level)) + ' ' + text.replace(/<[^>]+>/g, ''))
+    .replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 
   // Extract title from first heading or first line
   const titleMatch = markdown.match(/^#+\s+(.+)$/m);
@@ -28,13 +43,23 @@ export async function parseDocx(
 export async function parseDocxToHtml(
   buffer: Buffer
 ): Promise<{ title: string; content: string; html: string }> {
-  const [markdownResult, htmlResult] = await Promise.all([
-    mammoth.convertToMarkdown({ buffer }),
-    mammoth.convertToHtml({ buffer }),
-  ]);
-
-  const markdown = markdownResult.value.trim();
+  const htmlResult = await mammoth.convertToHtml({ buffer });
   const html = htmlResult.value.trim();
+
+  // Convert HTML to simple markdown-like text
+  const markdown = html
+    .replace(/<h([1-6])[^>]*>(.*?)<\/h[1-6]>/gi, (_, level, text) => '#'.repeat(Number(level)) + ' ' + text.replace(/<[^>]+>/g, ''))
+    .replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 
   const titleMatch = markdown.match(/^#+\s+(.+)$/m);
   const title = titleMatch
