@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --background: #020617;
+  --foreground: #f1f5f9;
+  --card: #0f172a;
+  --card-border: #1e293b;
+  --muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --accent: #8b5cf6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #f43f5e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Accessible focus styles */
+:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
+
+/* Markdown report styles */
+.audit-report h1 { font-size: 1.75rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: #f1f5f9; }
+.audit-report h2 { font-size: 1.35rem; font-weight: 600; margin: 1.25rem 0 0.5rem; color: #e2e8f0; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; }
+.audit-report h3 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: #cbd5e1; }
+.audit-report p { margin: 0.5rem 0; line-height: 1.7; color: #cbd5e1; }
+.audit-report ul, .audit-report ol { margin: 0.5rem 0; padding-left: 1.5rem; color: #cbd5e1; }
+.audit-report li { margin: 0.25rem 0; line-height: 1.6; }
+.audit-report strong { color: #f1f5f9; font-weight: 600; }
+.audit-report code { background: #1e293b; padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; color: #a5b4fc; }
+.audit-report pre { background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; margin: 0.75rem 0; }
+.audit-report pre code { background: none; padding: 0; }
+.audit-report blockquote { border-left: 3px solid #6366f1; padding-left: 1rem; margin: 0.75rem 0; color: #94a3b8; }
+.audit-report .table-wrapper,
+.audit-report table { overflow-x: auto; }
+.audit-report table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; display: block; overflow-x: auto; }
+.audit-report th, .audit-report td { border: 1px solid #1e293b; padding: 0.5rem 0.75rem; text-align: left; white-space: nowrap; }
+.audit-report th { background: #1e293b; color: #e2e8f0; font-weight: 600; }
+.audit-report td { color: #cbd5e1; }
+.audit-report img { max-width: 100%; height: auto; }

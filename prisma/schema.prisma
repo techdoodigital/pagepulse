@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  role           String    @default("user")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  accounts     Account[]
+  sessions     Session[]
+  subscription Subscription?
+  audits       Audit[]
+  tickets      SupportTicket[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Subscription {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  plan             String   @default("free") // free, starter, pro
+  stripeCustomerId String?
+  stripeSubId      String?
+  stripePriceId    String?
+  status           String   @default("active") // active, canceled, past_due
+  auditsUsed       Int      @default(0)
+  auditsLimit      Int      @default(2) // free tier: 2 audits/month
+  currentPeriodEnd DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Audit {
+  id         String   @id @default(cuid())
+  userId     String
+  url        String   @default("") // empty for paste/upload audits
+  sourceType String   @default("url") // url, paste, docx
+  title      String?
+  status     String   @default("pending") // pending, fetching, scoring, generating, completed, failed
+  sourceContent String? // raw markdown from Jina or pasted/uploaded content
+  scores    String?  // JSON blob of 9 dimension scores
+  report    String?  // final audit report markdown
+  revisedContent String? // AI-revised article (pro plan only)
+  cqs       Float?   // Content Quality Score 0-100
+  citability Float?  // AI Citability Score 0-10
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SupportTicket {
+  id          String   @id @default(cuid())
+  userId      String
+  subject     String
+  description String
+  status      String   @default("open") // open, in_progress, resolved, closed
+  priority    String   @default("medium") // low, medium, high
+  category    String // bug, feature_request, billing, account, other
+  response    String? // admin response
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CouponCode {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  discount    Int
+  maxUses     Int       @default(0)
+  currentUses Int       @default(0)
+  active      Boolean   @default(true)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
