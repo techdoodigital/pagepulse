@@ -46,26 +46,23 @@ export async function POST(request: Request) {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create the user and default subscription in a transaction
-    const user = await db.$transaction(async (tx) => {
-      const newUser = await tx.user.create({
-        data: {
-          name,
-          email,
-          hashedPassword,
-        },
-      });
+    // Create the user
+    const user = await db.user.create({
+      data: {
+        name,
+        email,
+        hashedPassword,
+      },
+    });
 
-      await tx.subscription.create({
-        data: {
-          userId: newUser.id,
-          plan: "free",
-          auditsLimit: 2,
-          auditsUsed: 0,
-        },
-      });
-
-      return newUser;
+    // Create default subscription
+    await db.subscription.create({
+      data: {
+        userId: user.id,
+        plan: "free",
+        auditsLimit: 2,
+        auditsUsed: 0,
+      },
     });
 
     return NextResponse.json(
@@ -80,8 +77,9 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Registration error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Something went wrong during registration" },
+      { error: `Registration failed: ${errorMessage}` },
       { status: 500 }
     );
   }
