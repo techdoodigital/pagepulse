@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { db } from "@/lib/db";
 import { fetchUrlAsMarkdown } from "@/lib/jina-reader";
 
@@ -31,28 +31,28 @@ export interface ReportResult {
 }
 
 // ---------------------------------------------------------------------------
-// OpenAI client
+// Anthropic client
 // ---------------------------------------------------------------------------
 
-function getOpenAIClient() {
-  let apiKey = process.env.OPENAI_API_KEY;
+function getAnthropicClient() {
+  let apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     try {
       const fs = require("fs");
       const path = require("path");
       const envPath = path.resolve(process.cwd(), ".env");
       const envContent = fs.readFileSync(envPath, "utf8");
-      const match = envContent.match(/^OPENAI_API_KEY=(.+)$/m);
+      const match = envContent.match(/^ANTHROPIC_API_KEY=(.+)$/m);
       if (match) apiKey = match[1].replace(/^["']|["']$/g, "").trim();
     } catch {
       // ignore
     }
   }
-  return new OpenAI({ apiKey });
+  return new Anthropic({ apiKey });
 }
 
-const openai = getOpenAIClient();
-const MODEL = "gpt-4o";
+const anthropic = getAnthropicClient();
+const MODEL = "claude-sonnet-4-20250514";
 
 // ---------------------------------------------------------------------------
 // Scoring prompt
@@ -209,12 +209,11 @@ List 3-5 changes that can be made in under 15 minutes for maximum impact.
 // ---------------------------------------------------------------------------
 
 export async function scoreContent(content: string): Promise<ScoreResult> {
-  const response = await openai.chat.completions.create({
+  const response = await anthropic.messages.create({
     model: MODEL,
-    temperature: 0.2,
     max_tokens: 4096,
+    system: SCORING_SYSTEM_PROMPT,
     messages: [
-      { role: "system", content: SCORING_SYSTEM_PROMPT },
       {
         role: "user",
         content: `Analyze the following web page content and score it across all 9 dimensions.\n\n---\n\n${content}`,
@@ -222,7 +221,7 @@ export async function scoreContent(content: string): Promise<ScoreResult> {
     ],
   });
 
-  const responseText = response.choices[0]?.message?.content || "";
+  const responseText = response.content[0].type === "text" ? response.content[0].text : "";
 
   // Parse JSON: handle possible markdown code fences
   const cleaned = responseText
@@ -254,12 +253,11 @@ export async function generateReport(
 
   const scoresJson = JSON.stringify(scores, null, 2);
 
-  const response = await openai.chat.completions.create({
+  const response = await anthropic.messages.create({
     model: MODEL,
-    temperature: 0.3,
     max_tokens: 8192,
+    system: REPORT_SYSTEM_PROMPT,
     messages: [
-      { role: "system", content: REPORT_SYSTEM_PROMPT },
       {
         role: "user",
         content: `## Pre-Calculated Scores\n\nCQS (Content Quality Score): ${cqs.toFixed(1)} / 100\n\nDimension Scores:\n\`\`\`json\n${scoresJson}\n\`\`\`\n\n## Original Content\n\n---\n\n${content}`,
@@ -267,7 +265,7 @@ export async function generateReport(
     ],
   });
 
-  const reportText = response.choices[0]?.message?.content || "";
+  const reportText = response.content[0].type === "text" ? response.content[0].text : "";
 
   // Extract citability score from the report
   let citability = 5; // default
@@ -314,12 +312,11 @@ export async function generateRevisedArticle(
 ): Promise<string> {
   const scoresJson = JSON.stringify(scores, null, 2);
 
-  const response = await openai.chat.completions.create({
+  const response = await anthropic.messages.create({
     model: MODEL,
-    temperature: 0.3,
     max_tokens: 8192,
+    system: REVISED_ARTICLE_SYSTEM_PROMPT,
     messages: [
-      { role: "system", content: REVISED_ARTICLE_SYSTEM_PROMPT },
       {
         role: "user",
         content: `## Dimension Scores\n\n\`\`\`json\n${scoresJson}\n\`\`\`\n\n## Original Article\n\n---\n\n${content}`,
@@ -327,7 +324,7 @@ export async function generateRevisedArticle(
     ],
   });
 
-  return response.choices[0]?.message?.content || "";
+  return response.content[0].type === "text" ? response.content[0].text : "";
 }
 
 // ---------------------------------------------------------------------------
