@@ -168,12 +168,17 @@ export default function PricingPage() {
           <div
             key={plan.id}
             className={`rounded-xl border p-6 relative ${
-              plan.highlighted
+              plan.id === currentPlan
                 ? "border-indigo-500 bg-indigo-500/5"
                 : "border-slate-800 bg-slate-900/50"
             }`}
           >
-            {plan.highlighted && (
+            {plan.id === currentPlan && plan.id !== "free" && (
+              <div className="text-xs font-medium text-indigo-400 mb-3">
+                Your Plan
+              </div>
+            )}
+            {plan.highlighted && plan.id !== currentPlan && (
               <div className="text-xs font-medium text-indigo-400 mb-3">
                 Most popular
               </div>
