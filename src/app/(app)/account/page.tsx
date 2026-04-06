@@ -37,7 +37,8 @@ export default async function AccountPage() {
   const plan = sub?.plan || "free";
   const used = sub?.auditsUsed || 0;
   const limit = sub?.auditsLimit || 2;
-  const usagePercent = Math.min((used / limit) * 100, 100);
+  const isUnlimited = limit === -1;
+  const usagePercent = isUnlimited ? 0 : Math.min((used / limit) * 100, 100);
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -120,7 +121,7 @@ export default async function AccountPage() {
                   Audits used this month
                 </span>
                 <span className="text-sm font-semibold text-slate-200">
-                  {used} / {limit}
+                  {isUnlimited ? `${used} (Unlimited)` : `${used} / ${limit}`}
                 </span>
               </div>
               <div className="h-2 bg-slate-800 rounded-full overflow-hidden">

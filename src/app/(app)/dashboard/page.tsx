@@ -46,7 +46,7 @@ export default async function DashboardPage() {
         <div>
           <h1 className="text-2xl font-bold text-slate-100">Dashboard</h1>
           <p className="text-sm text-slate-400 mt-1">
-            {plan.charAt(0).toUpperCase() + plan.slice(1)} plan · {used}/{limit} audits used this month
+            {plan.charAt(0).toUpperCase() + plan.slice(1)} plan · {limit === -1 ? `${used} audits used this month (Unlimited)` : `${used}/${limit} audits used this month`}
           </p>
         </div>
         <Link

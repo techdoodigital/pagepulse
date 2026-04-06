@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
   const auditsUsed = subscription?.auditsUsed ?? 0;
   const auditsLimit = subscription?.auditsLimit ?? 2;
 
-  if (auditsUsed >= auditsLimit) {
+  if (auditsLimit !== -1 && auditsUsed >= auditsLimit) {
     return NextResponse.json(
       {
         error: "Audit limit reached. Please upgrade your plan for more audits.",
