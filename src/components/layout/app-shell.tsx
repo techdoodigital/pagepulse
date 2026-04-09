@@ -31,7 +31,7 @@ export function AppShell({ user, children }: AppShellProps) {
               href="/dashboard"
               className="text-lg font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent"
             >
-              PagePulse
+              CiteAudit
             </Link>
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (

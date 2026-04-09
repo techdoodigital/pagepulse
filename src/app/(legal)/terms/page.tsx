@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | PagePulse",
-  description: "Terms of Service for PagePulse",
+  title: "Terms of Service | CiteAudit",
+  description: "Terms of Service for CiteAudit",
 };
 
 export default function TermsOfServicePage() {
@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
           1. Acceptance of Terms
         </h2>
         <p className="text-slate-400 leading-relaxed">
-          By accessing or using PagePulse (&quot;the Service&quot;), you agree to be bound
+          By accessing or using CiteAudit (&quot;the Service&quot;), you agree to be bound
           by these Terms of Service (&quot;Terms&quot;). If you do not agree to all of
           these Terms, you may not access or use the Service. We reserve the
           right to update these Terms at any time, and your continued use of
@@ -33,7 +33,7 @@ export default function TermsOfServicePage() {
           2. Description of Service
         </h2>
         <p className="text-slate-400 leading-relaxed">
-          PagePulse is a SaaS platform that provides AI-powered content auditing
+          CiteAudit is a SaaS platform that provides AI-powered content auditing
           and optimization services. The Service analyzes web content across
           multiple dimensions and provides scoring, recommendations, and
           rewrite suggestions designed to improve content quality and AI
@@ -63,7 +63,7 @@ export default function TermsOfServicePage() {
           4. Subscription &amp; Billing
         </h2>
         <p className="text-slate-400 leading-relaxed mb-3">
-          PagePulse offers both free and paid subscription plans. By selecting a
+          CiteAudit offers both free and paid subscription plans. By selecting a
           paid plan, you agree to pay the applicable fees as described at the
           time of purchase. Subscriptions are billed on a recurring basis
           (monthly or annually, depending on the plan selected) and will
@@ -121,10 +121,10 @@ export default function TermsOfServicePage() {
         <p className="text-slate-400 leading-relaxed">
           All content, features, and functionality of the Service,
           including but not limited to text, graphics, logos, software, and
-          algorithms, are owned by PagePulse and are protected by
+          algorithms, are owned by CiteAudit and are protected by
           copyright, trademark, and other intellectual property laws. You
           retain ownership of any content you submit to the Service for
-          analysis. By using the Service, you grant PagePulse a limited,
+          analysis. By using the Service, you grant CiteAudit a limited,
           non-exclusive license to process your content solely for the purpose
           of providing the Service. We do not claim ownership over your content
           or use it for any purpose other than delivering the Service.
@@ -136,13 +136,13 @@ export default function TermsOfServicePage() {
           7. Limitation of Liability
         </h2>
         <p className="text-slate-400 leading-relaxed">
-          To the maximum extent permitted by applicable law, PagePulse and its
+          To the maximum extent permitted by applicable law, CiteAudit and its
           officers, directors, employees, and agents shall not be liable for
           any indirect, incidental, special, consequential, or punitive
           damages, including but not limited to loss of profits, data, use, or
           goodwill, arising out of or in connection with your access to or use
           of the Service. In no event shall our total liability exceed the
-          amount you have paid to PagePulse in the twelve (12) months preceding
+          amount you have paid to CiteAudit in the twelve (12) months preceding
           the event giving rise to the liability. The Service is provided on an
           &quot;as is&quot; and &quot;as available&quot; basis without warranties of any kind,
           either express or implied.
@@ -187,10 +187,10 @@ export default function TermsOfServicePage() {
           If you have any questions about these Terms of Service, please
           contact us at{" "}
           <a
-            href="mailto:support@pagepulse.co"
+            href="mailto:support@citeaudit.co"
             className="text-teal-400 hover:text-teal-300 transition"
           >
-            support@pagepulse.co
+            support@citeaudit.co
           </a>
           .
         </p>

@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PagePulse - AI Content Audit Tool",
+  title: "CiteAudit - AI Content Audit Tool",
   description:
-    "PagePulse audits your content for AI Search optimization. Get a Content Quality Score and actionable recommendations to improve AI citability.",
+    "CiteAudit audits your content for AI Search optimization. Get a Content Quality Score and actionable recommendations to improve AI citability.",
 };
 
 export default function RootLayout({

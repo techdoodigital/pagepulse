@@ -29,7 +29,7 @@ export function Navbar({ user, className }: NavbarProps) {
           className="flex items-center gap-2 text-lg font-bold tracking-tight"
         >
           <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
-            PagePulse
+            CiteAudit
           </span>
         </Link>
 

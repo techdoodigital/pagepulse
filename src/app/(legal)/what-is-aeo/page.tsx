@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "What is Answer Engine Optimization (AEO)? | PagePulse",
+    "What is Answer Engine Optimization (AEO)? | CiteAudit",
   description:
-    "Learn what Answer Engine Optimization is, why it matters for content visibility in AI-powered search, and how PagePulse helps you optimize for AI citability.",
+    "Learn what Answer Engine Optimization is, why it matters for content visibility in AI-powered search, and how CiteAudit helps you optimize for AI citability.",
 };
 
 export default function WhatIsAEOPage() {
@@ -211,7 +211,7 @@ export default function WhatIsAEOPage() {
           <p>
             In practice, AEO and GEO overlap significantly. The same content
             principles that make your pages citable by one AI system make them
-            citable by all of them. PagePulse covers both by scoring the
+            citable by all of them. CiteAudit covers both by scoring the
             fundamental content attributes that all AI engines use to evaluate
             sources.
           </p>
@@ -221,11 +221,11 @@ export default function WhatIsAEOPage() {
       {/* How PagePulse helps */}
       <section className="mb-12">
         <h2 className="text-xl font-bold text-slate-100 mb-4">
-          How PagePulse helps with AEO
+          How CiteAudit helps with AEO
         </h2>
         <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-6 text-sm text-slate-300 leading-relaxed space-y-4">
           <p>
-            PagePulse was built specifically to measure the content attributes
+            CiteAudit was built specifically to measure the content attributes
             that determine AI citability. Instead of guessing what to fix, you
             get a data-driven audit across 9 evidence-based dimensions.
           </p>
@@ -272,7 +272,7 @@ export default function WhatIsAEOPage() {
               href="/signup"
               className="inline-block px-5 py-2.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium transition"
             >
-              Try PagePulse Free
+              Try CiteAudit Free
             </Link>
           </div>
         </div>

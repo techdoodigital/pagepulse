@@ -154,13 +154,32 @@ export default function PricingPage() {
     }
   }
 
+  const isHighestPlan = currentPlan === "pro";
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-2xl font-bold text-slate-100 mb-2">Upgrade your plan</h1>
-        <p className="text-sm text-slate-400">
-          Get more audits and unlock advanced features.
-        </p>
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">
+          {isHighestPlan ? "Your Plan" : "Upgrade your plan"}
+        </h1>
+        {isHighestPlan ? (
+          <div className="inline-flex items-center gap-2 mt-1 px-4 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+            <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-sm text-emerald-400 font-medium">
+              You are on the Pro plan — our highest tier. All features are unlocked.
+            </span>
+          </div>
+        ) : currentPlan === "starter" ? (
+          <p className="text-sm text-slate-400">
+            You are on the Starter plan. Upgrade to Pro to unlock AI-revised articles, bulk audits, and more.
+          </p>
+        ) : (
+          <p className="text-sm text-slate-400">
+            Get more audits and unlock advanced features by upgrading your plan.
+          </p>
+        )}
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">

@@ -1,11 +1,43 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DIMENSIONS } from "@/lib/dimensions";
+
+function markdownToHtml(markdown: string): string {
+  // Convert markdown to clean HTML for blog editors
+  let html = markdown;
+  // Headers
+  html = html.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
+  html = html.replace(/^#####\s+(.+)$/gm, '<h5>$1</h5>');
+  html = html.replace(/^####\s+(.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^##\s+(.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^#\s+(.+)$/gm, '<h1>$1</h1>');
+  // Bold and italic
+  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // Unordered lists
+  html = html.replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>');
+  html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>\n$1</ul>\n');
+  // Ordered lists
+  html = html.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // Blockquotes
+  html = html.replace(/^>\s+(.+)$/gm, '<blockquote>$1</blockquote>');
+  // Horizontal rules
+  html = html.replace(/^---$/gm, '<hr>');
+  // Paragraphs - wrap non-tag lines
+  html = html.replace(/^(?!<[a-z])((?!^\s*$).+)$/gm, '<p>$1</p>');
+  // Clean up empty lines
+  html = html.replace(/\n{3,}/g, '\n\n');
+  return html.trim();
+}
 
 interface DimensionScore {
   score: number;
@@ -98,6 +130,9 @@ export default function AuditPage() {
   const [shouldPoll, setShouldPoll] = useState(true);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [generatingRevised, setGeneratingRevised] = useState(false);
+  const [copyLabel, setCopyLabel] = useState("Copy");
+  const [copyHtmlLabel, setCopyHtmlLabel] = useState("Copy HTML");
+  const revisedRef = useRef<HTMLDivElement>(null);
 
   const fetchAudit = useCallback(async () => {
     try {
@@ -579,32 +614,82 @@ export default function AuditPage() {
                         Your content rewritten with all recommendations applied
                       </p>
                     </div>
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(
-                          audit.revisedContent || ""
-                        );
-                      }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 text-sm text-slate-300 hover:border-slate-600 hover:text-slate-200 transition"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          const html = markdownToHtml(audit.revisedContent || "");
+                          navigator.clipboard.writeText(html);
+                          setCopyHtmlLabel("Copied!");
+                          setTimeout(() => setCopyHtmlLabel("Copy HTML"), 2000);
+                        }}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 text-sm text-slate-300 hover:border-slate-600 hover:text-slate-200 transition"
+                        title="Copy as HTML — paste directly into Shopify or any blog editor"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                        />
-                      </svg>
-                      Copy
-                    </button>
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                          />
+                        </svg>
+                        {copyHtmlLabel}
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            audit.revisedContent || ""
+                          );
+                          setCopyLabel("Copied!");
+                          setTimeout(() => setCopyLabel("Copy"), 2000);
+                        }}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 text-sm text-slate-300 hover:border-slate-600 hover:text-slate-200 transition"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {copyLabel}
+                      </button>
+                    </div>
                   </div>
-                  <div className="audit-report">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  <div className="audit-report" ref={revisedRef}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        h1: ({children}) => <h1 className="text-2xl font-bold text-slate-100 mt-8 mb-4">{children}</h1>,
+                        h2: ({children}) => <h2 className="text-xl font-bold text-slate-100 mt-6 mb-3">{children}</h2>,
+                        h3: ({children}) => <h3 className="text-lg font-semibold text-slate-200 mt-5 mb-2">{children}</h3>,
+                        h4: ({children}) => <h4 className="text-base font-semibold text-slate-200 mt-4 mb-2">{children}</h4>,
+                        p: ({children}) => <p className="text-slate-300 leading-relaxed mb-4">{children}</p>,
+                        ul: ({children}) => <ul className="list-disc list-inside space-y-1 mb-4 text-slate-300 ml-2">{children}</ul>,
+                        ol: ({children}) => <ol className="list-decimal list-inside space-y-1 mb-4 text-slate-300 ml-2">{children}</ol>,
+                        li: ({children}) => <li className="text-slate-300 leading-relaxed">{children}</li>,
+                        strong: ({children}) => <strong className="font-bold text-slate-100">{children}</strong>,
+                        em: ({children}) => <em className="italic text-slate-200">{children}</em>,
+                        blockquote: ({children}) => <blockquote className="border-l-4 border-teal-500 pl-4 my-4 text-slate-400 italic">{children}</blockquote>,
+                        a: ({href, children}) => <a href={href} className="text-teal-400 hover:text-teal-300 underline" target="_blank" rel="noopener noreferrer">{children}</a>,
+                        hr: () => <hr className="border-slate-700 my-6" />,
+                        table: ({children}) => <div className="overflow-x-auto mb-4"><table className="w-full border-collapse border border-slate-700 text-sm">{children}</table></div>,
+                        thead: ({children}) => <thead className="bg-slate-800">{children}</thead>,
+                        th: ({children}) => <th className="border border-slate-700 px-3 py-2 text-left text-slate-200 font-semibold">{children}</th>,
+                        td: ({children}) => <td className="border border-slate-700 px-3 py-2 text-slate-300">{children}</td>,
+                      }}
+                    >
                       {audit.revisedContent}
                     </ReactMarkdown>
                   </div>

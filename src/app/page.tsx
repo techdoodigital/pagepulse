@@ -258,7 +258,7 @@ export default function LandingPage() {
             href="/"
             className="text-xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent"
           >
-            PagePulse
+            CiteAudit
           </Link>
           <div className="hidden md:flex items-center gap-8">
             <a href="#benefits" className="text-sm text-slate-400 hover:text-slate-200 transition">
@@ -311,7 +311,7 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="text-lg text-slate-400 max-w-lg mb-8 leading-relaxed">
-              PagePulse audits any URL against 9 evidence-based dimensions and tells
+              CiteAudit audits any URL against 9 evidence-based dimensions and tells
               you exactly what to fix so AI search engines like ChatGPT, Perplexity,
               and Google AI Overviews cite your content as a source.
             </p>
@@ -340,7 +340,7 @@ export default function LandingPage() {
               <div className="w-3 h-3 rounded-full bg-rose-500/60" />
               <div className="w-3 h-3 rounded-full bg-amber-500/60" />
               <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
-              <span className="text-xs text-slate-500 ml-2">pagepulse.co/audit/results</span>
+              <span className="text-xs text-slate-500 ml-2">citeaudit.co/audit/results</span>
             </div>
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -471,7 +471,7 @@ export default function LandingPage() {
             The 9 dimensions of AI-citable content
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto">
-            PagePulse scores every page across 9 research-backed dimensions that
+            CiteAudit scores every page across 9 research-backed dimensions that
             determine how AI search engines evaluate, extract, and cite content.
           </p>
         </div>
@@ -616,7 +616,7 @@ export default function LandingPage() {
                 href="/"
                 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent"
               >
-                PagePulse
+                CiteAudit
               </Link>
               <p className="text-sm text-slate-500 mt-3 leading-relaxed">
                 AI-powered content auditing for the age of answer engines.

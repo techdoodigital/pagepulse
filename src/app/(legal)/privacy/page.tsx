@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | PagePulse",
-  description: "Privacy Policy for PagePulse",
+  title: "Privacy Policy | CiteAudit",
+  description: "Privacy Policy for CiteAudit",
 };
 
 export default function PrivacyPolicyPage() {
@@ -97,7 +97,7 @@ export default function PrivacyPolicyPage() {
         </h2>
         <p className="text-slate-400 leading-relaxed mb-3">
           We use the following third-party services to operate and improve
-          PagePulse. Each service may collect and process data according to their
+          CiteAudit. Each service may collect and process data according to their
           own privacy policies:
         </p>
         <ul className="list-disc list-inside text-slate-400 space-y-1.5 ml-2">
@@ -170,10 +170,10 @@ export default function PrivacyPolicyPage() {
         <p className="text-slate-400 leading-relaxed mt-3">
           To exercise any of these rights, please contact us at{" "}
           <a
-            href="mailto:support@pagepulse.co"
+            href="mailto:support@citeaudit.co"
             className="text-teal-400 hover:text-teal-300 transition"
           >
-            support@pagepulse.co
+            support@citeaudit.co
           </a>
           . We will respond to your request within 30 days.
         </p>
@@ -217,10 +217,10 @@ export default function PrivacyPolicyPage() {
           If you have any questions or concerns about this Privacy Policy or
           our data practices, please contact us at{" "}
           <a
-            href="mailto:support@pagepulse.co"
+            href="mailto:support@citeaudit.co"
             className="text-teal-400 hover:text-teal-300 transition"
           >
-            support@pagepulse.co
+            support@citeaudit.co
           </a>
           .
         </p>

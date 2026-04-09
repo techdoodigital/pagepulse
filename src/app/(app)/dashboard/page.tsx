@@ -83,7 +83,7 @@ export default async function DashboardPage() {
               </div>
               <div className="flex gap-3">
                 <div className="w-6 h-6 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0 text-xs font-bold">2</div>
-                <p className="text-sm text-slate-400">PagePulse scores your content across 9 AI-readiness dimensions</p>
+                <p className="text-sm text-slate-400">CiteAudit scores your content across 9 AI-readiness dimensions</p>
               </div>
               <div className="flex gap-3">
                 <div className="w-6 h-6 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0 text-xs font-bold">3</div>

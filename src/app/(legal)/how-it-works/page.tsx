@@ -2,19 +2,19 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "How PagePulse Works | AI Content Audit Process",
+  title: "How CiteAudit Works | AI Content Audit Process",
   description:
-    "Learn how PagePulse audits your content across 9 dimensions, calculates your Content Quality Score and AI Citability rating, and generates actionable recommendations.",
+    "Learn how CiteAudit audits your content across 9 dimensions, calculates your Content Quality Score and AI Citability rating, and generates actionable recommendations.",
 };
 
 export default function HowItWorksPage() {
   return (
     <div>
       <h1 className="text-3xl font-bold text-slate-100 mb-3">
-        How PagePulse works
+        How CiteAudit works
       </h1>
       <p className="text-slate-400 mb-10 leading-relaxed">
-        A detailed look at how PagePulse analyzes your content and produces
+        A detailed look at how CiteAudit analyzes your content and produces
         actionable AI optimization recommendations.
       </p>
 
@@ -31,7 +31,7 @@ export default function HowItWorksPage() {
               description:
                 "Choose how you want to provide content for analysis. You have three options:",
               details: [
-                "Paste a URL to any publicly accessible page. PagePulse fetches the content, strips away navigation, ads, sidebars, and boilerplate, leaving only the core article text.",
+                "Paste a URL to any publicly accessible page. CiteAudit fetches the content, strips away navigation, ads, sidebars, and boilerplate, leaving only the core article text.",
                 "Paste your draft text directly. Perfect for auditing articles before they go live. Supports plain text and HTML.",
                 "Upload a .docx file. Great for content drafted in Word or Google Docs. Text, headings, lists, and tables are extracted automatically.",
               ],
@@ -40,7 +40,7 @@ export default function HowItWorksPage() {
               step: 2,
               title: "AI analysis begins",
               description:
-                "Once your content is submitted, PagePulse processes it through a multi-stage analysis pipeline:",
+                "Once your content is submitted, CiteAudit processes it through a multi-stage analysis pipeline:",
               details: [
                 "The content is parsed and normalized into a clean text format with structural metadata preserved.",
                 "GPT-4o evaluates the content across all 9 scoring dimensions, assessing everything from search intent alignment to authority signals.",
@@ -53,7 +53,7 @@ export default function HowItWorksPage() {
               step: 3,
               title: "Report generation",
               description:
-                "After scoring, PagePulse generates a detailed analysis report containing:",
+                "After scoring, CiteAudit generates a detailed analysis report containing:",
               details: [
                 "A breakdown of every dimension score with specific evidence and examples from your content.",
                 "Prioritized recommendations ranked by potential impact on your content quality.",
@@ -288,7 +288,7 @@ export default function HowItWorksPage() {
                 />
               </svg>
               <span>
-                A free PagePulse account (sign up with email or Google).
+                A free CiteAudit account (sign up with email or Google).
               </span>
             </li>
             <li className="flex gap-3">
@@ -332,7 +332,7 @@ export default function HowItWorksPage() {
           </ul>
           <p className="text-slate-400 pt-2">
             No API keys, integrations, or third-party accounts are required.
-            PagePulse works entirely through the web dashboard.
+            CiteAudit works entirely through the web dashboard.
           </p>
         </div>
       </section>

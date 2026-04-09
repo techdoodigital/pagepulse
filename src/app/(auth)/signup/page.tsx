@@ -61,7 +61,7 @@ export default function SignupPage() {
             href="/"
             className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent"
           >
-            PagePulse
+            CiteAudit
           </Link>
           <p className="text-slate-400 text-sm mt-2">
             Create your free account

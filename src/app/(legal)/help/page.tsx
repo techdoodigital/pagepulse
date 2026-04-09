@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Help & Guide | PagePulse",
+  title: "Help & Guide | CiteAudit",
   description:
-    "Learn how to use PagePulse to audit your content for AI search optimization. Setup guide, scoring explained, and troubleshooting tips.",
+    "Learn how to use CiteAudit to audit your content for AI search optimization. Setup guide, scoring explained, and troubleshooting tips.",
 };
 
 const quickLinks = [
@@ -41,7 +41,7 @@ export default function HelpPage() {
         Help & Guide
       </h1>
       <p className="text-slate-400 mb-8">
-        Everything you need to get the most out of PagePulse.
+        Everything you need to get the most out of CiteAudit.
       </p>
 
       {/* Quick links */}
@@ -62,7 +62,7 @@ export default function HelpPage() {
         <SectionHeading id="getting-started">Getting started</SectionHeading>
         <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 space-y-4">
           <p className="text-sm text-slate-300 leading-relaxed">
-            PagePulse audits your content across 9 evidence-based dimensions to
+            CiteAudit audits your content across 9 evidence-based dimensions to
             measure how well AI search engines can extract, understand, and cite
             it. Here is how to run your first audit:
           </p>
@@ -97,7 +97,7 @@ export default function HelpPage() {
                 <strong className="text-slate-200">
                   Wait about 30 to 60 seconds
                 </strong>{" "}
-                while PagePulse fetches (or parses) your content, scores it
+                while CiteAudit fetches (or parses) your content, scores it
                 across all 9 dimensions, and generates your report.
               </span>
             </li>
@@ -135,7 +135,7 @@ export default function HelpPage() {
               URL audit
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Paste any publicly accessible URL. PagePulse fetches the page
+              Paste any publicly accessible URL. CiteAudit fetches the page
               content, strips navigation, ads, and boilerplate, then analyzes
               the core article text. This is ideal for auditing published blog
               posts, landing pages, documentation, and knowledge base articles.
@@ -157,7 +157,7 @@ export default function HelpPage() {
               Upload .docx
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Upload a Word document (.docx) up to 10 MB. PagePulse extracts
+              Upload a Word document (.docx) up to 10 MB. CiteAudit extracts
               the text content including headings, paragraphs, lists, and
               tables. This works great with documents exported from Google Docs.
               To export from Google Docs, go to File &gt; Download &gt;
